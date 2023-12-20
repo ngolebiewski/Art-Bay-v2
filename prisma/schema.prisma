@@ -1,0 +1,79 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                     Int           @id @default(autoincrement())
+  username               String        @unique
+  password               String
+  email                  String        @unique
+  isAdmin                Boolean
+  firstName              String        @db.VarChar(35)
+  lastName               String        @db.VarChar(35)
+  streetAddress          String?
+  secondaryStreetAddress String?
+  city                   String?       @db.VarChar(30)
+  state                  String?       @db.VarChar(20)
+  country                String?       @db.VarChar(25)
+  phoneNumber            Int?
+  zipCode                Int?
+  orderDetails           OrderDetail[]
+  favorites              Favorites[]
+}
+
+model Art {
+  id          Int         @id @default(autoincrement())
+  title       String      @db.VarChar(35)
+  description String
+  price       Int
+  inStock     Boolean
+  dimensions  String?     @db.VarChar(20)
+  year        Int        
+  imgUrl      String      
+  medium      String?     @db.VarChar(35)
+  artist      Artist      @relation(fields: [artistId], references: [id])
+  artistId    Int
+  favorites   Favorites[]
+  cartItems   CartItem[]
+}
+
+model CartItem {
+  id       Int          @id @default(autoincrement())
+  quantity Int
+  art      Art          @relation(fields: [artId], references: [id])
+  artId    Int
+  order    OrderDetail  @relation(fields: [orderId], references: [id])
+  orderId  Int
+}
+
+model OrderDetail {
+  id          Int         @id @default(autoincrement())
+  paymentDate DateTime    @default(now())
+  isComplete  Boolean
+  user        User        @relation(fields: [userId], references: [id])
+  userId      Int 
+  cartItems   CartItem[]
+}
+
+model Artist {
+  id           Int    @id @default(autoincrement())
+  name         String
+  imgUrl       String?
+  arts          Art[]  
+}
+
+model Favorites {
+  id            Int  @id @default(autoincrement())
+  user          User @relation(fields: [userId], references: [id])
+  userId        Int    
+  art           Art  @relation(fields: [artId], references: [id])
+  artId         Int 
+}
