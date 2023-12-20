@@ -6,8 +6,8 @@ const LoginForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // console.log("Username:", username);
-    // console.log("Password:", password);
+    console.log("Username:", username);
+    console.log("Password:", password);
   };
 
   return (
