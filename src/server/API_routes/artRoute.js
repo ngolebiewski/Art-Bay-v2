@@ -1,6 +1,5 @@
 const express = require('express');
 const { PrismaClient } = require("@prisma/client");
-const jwt = require('jsonwebtoken');
 
 const router = express.Router();
 const prisma = new PrismaClient()
@@ -15,7 +14,7 @@ const prisma = new PrismaClient()
 // SECURITY: Everyone
 router.get('/', async (req, res, next) => {
   try {
-    const allArtworks = await prisma.post.findMany();
+    const allArtworks = await prisma.art.findMany();
     res.send(allArtworks);
   } catch (error) {
     res.status(500).send
@@ -31,7 +30,7 @@ router.get('/:id', async (req, res, next) => {
   const artId = parseInt(req.params.id);
 
   try {
-     const singleArtwork = await prisma.post.findUnique({
+     const singleArtwork = await prisma.art.findUnique({
       where: {
         id: artId,
       }
