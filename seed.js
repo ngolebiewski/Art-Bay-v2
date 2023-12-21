@@ -74,6 +74,96 @@ async function main() {
         },
     });
 
+    const artist1 = await prisma.artist.create({
+        data: {
+          name: "Jon Shaw",
+          imgUrl: "https://i.imgur.com/xvWaerZ.jpg", 
+        },
+      });
+      
+      const artist2 = await prisma.artist.create({
+        data: {
+          name: "William Whitaker",
+          imgUrl: "https://i.imgur.com/uSAGNtP.png",
+        },
+      });
+      
+      const artist3 = await prisma.artist.create({
+        data: {
+          name: "Cristina Alfaro Eguiluz",
+          imgUrl: "https://i.imgur.com/GYhUbIG.png", 
+        },
+      });
+
+    const art1 = await prisma.art.create({
+        data: {
+          title: "Poppy Water",
+          description: "Vancouver alleyways",
+          price: 500,
+          inStock: true,
+          dimensions: "36x36",
+          year: 2021,
+          imgUrl: "https://i.imgur.com/QJeBB3V.jpeg",
+          medium: "Ink and acrylic on wood",
+          artistId: artist1.id
+        },
+      });
+
+      const art2 = await prisma.art.create({
+        data: {
+          title: "Notre Dame",
+          description: "A watercolor painting of Notre-Dame Cathedral",
+          price: 200,
+          inStock: true,
+          dimensions: "20x20",
+          year: 2019,
+          imgUrl: "https://imgur.com/gallery/LdPENU0",
+          medium: "Ink and acrylic",
+          artistId: artist1.id
+        },
+      });
+      const art3 = await prisma.art.create({
+        data: {
+          title: "Submerged Elegance",
+          description: "A captivating portrait of a woman submerged in water, painted with vibrant blue tones and dramatic contrast.",
+          price: 750,
+          inStock: true,
+          dimensions: "30x40",
+          year: 2023,
+          imgUrl: "https://i.imgur.com/jyyxFC4.jpeg",
+          medium: "Acrylic on Canvas",
+          artistId: artist3.id 
+        },
+      });
+   
+      const art4 = await prisma.art.create({
+        data: {
+          title: "Repose in Nature",
+          description: "An evocative classical painting depicting a young woman in a white dress seated on a rocking chair amidst a blooming garden.",
+          price: 800,
+          inStock: true,
+          dimensions: "20x25",
+          year: 1943, 
+          imgUrl: "https://i.imgur.com/OVxr5cL.jpeg", 
+          medium: "Oil on Canvas",
+          artistId: artist2.id 
+        },
+      });
+
+      const art5 = await prisma.art.create({
+        data: {
+          title: "Fruitful Stillness",
+          description: "A still life painting capturing a rich array of fruits with a teapot, evoking a sense of domestic tranquility.",
+          price: 600,
+          inStock: true,
+          dimensions: "30x40",
+          year: 2023, 
+          imgUrl: "https://i.imgur.com/UIZkAPe.jpeg", 
+          medium: "Digital Painting",
+          artistId: artist3.id
+        },
+      });
+
 
   }
   
