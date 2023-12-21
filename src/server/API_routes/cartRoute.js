@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 // /cart routes
-router.get('/', (req, res) => {
+router.get('/cart', (req, res) => {
   res.json({ message: 'Get all cart items' });
 });
 
