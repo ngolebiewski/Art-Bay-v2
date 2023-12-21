@@ -3,7 +3,7 @@ const router = express.Router();
 
 // /user routes
 router.get('/user', (req, res) => {
-  res.json({ message: 'Get all users' });
+  res.json({ message: 'Welcome to the user page' });
 });
 
 module.exports = router;

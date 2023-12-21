@@ -3,7 +3,7 @@ const router = express.Router();
 
 // /cart routes
 router.get('/cart', (req, res) => {
-  res.json({ message: 'Get all cart items' });
+  res.json({ message: 'welcome to the cart' });
 });
 
 module.exports = router;
