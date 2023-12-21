@@ -1,8 +1,7 @@
 const express = require('express');
-const { PrismaClient } = require("@prisma/client");
 
 const router = express.Router();
-const prisma = new PrismaClient()
+const prisma = require ("../client");
 
 //////////////////////////////////////////////////////
 // GET 
@@ -17,8 +16,9 @@ router.get('/', async (req, res, next) => {
     const allArtworks = await prisma.art.findMany();
     res.send(allArtworks);
   } catch (error) {
-    res.status(500).send
-  } next;
+    console.error(error)
+    next(error);
+  } 
 
 });
 
@@ -35,10 +35,11 @@ router.get('/:id', async (req, res, next) => {
         id: artId,
       }
      });
-    res.send(singleArtwork || {});
+    res.send(singleArtwork);
   } catch (error) {
-    res.status(400).send
-  }next;
+    console.error(error)
+    next(error);
+  }
 });
 
 
