@@ -34,29 +34,8 @@ app.use((req, res, next) => {
 
 //API ROUTES
 app.use('/api', require("./API_routes/index.js"))
-app.use('/auth', require("./auth/auth.js"))
+app.use('/auth', require("./auth_routes/auth.js"))
 
-//REGISTRATION ROUTE
-app.post('/auth/register', async (req, res) => {
-  const { email, firstName, lastName, username, password } = req.body;
-
-  try {
-    const newUser = await prisma.user.create({
-      data: {
-        email,
-        firstName,
-        lastName,
-        username,
-        password,                          // we need to 'hash' this eventually
-      },
-    });
-
-    res.status(201).json({ message: 'User registered Successfully', user: newUser });
-  } catch (error) {
-    console.error("Error during registration", error);
-    res.status(500).json({ error: "Internal Server Error" });
-  }
-});
 
 
 app.get("/hello", (req, res) => {
