@@ -15,14 +15,14 @@ const users = [
   ];
 
 // Secret key for JWT 
-JWT_SECRET = "Pizza";
+const JWT_SECRET = "Pizza";
 
 // Middleware to verify JWT token
 const authenticateToken = (req, res, next) => {
   const token = req.header('Authorization');
   if (!token) return res.sendStatus(401);
 
-  jwt.verify(token, secretKey, (err, user) => {
+  jwt.verify(token, JWT_SECRET, (err, user) => {
     if (err) return res.sendStatus(403);
     req.user = user;
     next();
