@@ -1,6 +1,6 @@
 const express = require("express");
 const ViteExpress = require("vite-express");
-
+require("dotenv").config();
 const morgan = require('morgan');
 const jwt = require('jsonwebtoken');
 const app = express();
@@ -34,7 +34,6 @@ app.use((req, res, next) => {
 //API ROUTES
 app.use('/api', require("./API_routes/index.js"))
 app.use('/auth', require("./auth_routes/auth.js"))
-
 
 
 app.get("/hello", (req, res) => {
