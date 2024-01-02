@@ -1,14 +1,22 @@
 const express = require('express');
 const { PrismaClient } = require("@prisma/client");
-
 const router = express.Router();
 const prisma = new PrismaClient()
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+
+const bodyParser = require('body-parser');
+const app = express();
+
+app.use(bodyParser.json());
 
 router.post('auth/login', async (req, res) => {
     try {
       const { username, password } = req.body;
-      const user = users.find(u => u.username === username);
+
+      const user = await prisma.user.findUnique({
+        where: { username: username },
+      });
   
       if (user && (await bcrypt.compare(password, user.password))) {
         const token = jwt.sign({ id: user.id, username: user.username }, secretKey);
