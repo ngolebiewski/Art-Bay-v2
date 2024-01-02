@@ -14,9 +14,6 @@ const users = [
     { id: 2, username: 'user2', password: 'password2' },
   ];
 
-// Secret key for JWT 
-JWT_SECRET = "Pizza";
-
 // Middleware to verify JWT token
 const authenticateToken = (req, res, next) => {
   const token = req.header('Authorization');

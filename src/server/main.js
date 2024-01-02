@@ -31,7 +31,7 @@ app.use((req, res, next) => {
 
 //API ROUTES
 app.use('/api', require("./API_routes/index.js"))
-// app.use('/auth', require("./auth/auth.js"))
+app.use('/auth', require("./auth/auth.js"))
 
 
 app.get("/hello", (req, res) => {
