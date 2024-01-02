@@ -4,8 +4,6 @@ const router = express.Router();
 const prisma = new PrismaClient()
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-
-const bodyParser = require('body-parser');
 const app = express();
 
 app.use(bodyParser.json());
