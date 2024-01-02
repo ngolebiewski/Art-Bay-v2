@@ -8,23 +8,23 @@ const port = 3000;
 
 app.use(bodyParser.json());
 
-// sample users
-const users = [
-    { id: 1, username: 'user1', password: 'password1' },
-    { id: 2, username: 'user2', password: 'password2' },
-  ];
+// // sample users
+// const users = [
+//     { id: 1, username: 'user1', password: 'password1' },
+//     { id: 2, username: 'user2', password: 'password2' },
+//   ];
 
-// Middleware to verify JWT token
-const authenticateToken = (req, res, next) => {
-  const token = req.header('Authorization');
-  if (!token) return res.sendStatus(401);
+// // Middleware to verify JWT token
+// const authenticateToken = (req, res, next) => {
+//   const token = req.header('Authorization');
+//   if (!token) return res.sendStatus(401);
 
-  jwt.verify(token, secretKey, (err, user) => {
-    if (err) return res.sendStatus(403);
-    req.user = user;
-    next();
-  });
-};
+//   jwt.verify(token, secretKey, (err, user) => {
+//     if (err) return res.sendStatus(403);
+//     req.user = user;
+//     next();
+//   });
+// };
 
 router.use('/login', require('./loginRoute.js'))
 router.use('/register', require('./registerRoute.js'))
