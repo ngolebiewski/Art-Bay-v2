@@ -1,5 +1,6 @@
 const express = require("express");
 const ViteExpress = require("vite-express");
+
 const morgan = require('morgan');
 const jwt = require('jsonwebtoken');
 const app = express();
