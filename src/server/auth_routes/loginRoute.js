@@ -5,7 +5,7 @@ const router = express.Router();
 const prisma = new PrismaClient()
 const bcrypt = require('bcrypt');
 
-router.post('auth/login', async (req, res) => {
+router.post('/', async (req, res) => {
     try {
       const { username, password } = req.body;
       const user = users.find(u => u.username === username);
