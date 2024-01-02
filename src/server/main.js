@@ -28,10 +28,9 @@ app.use((req, res, next) => {
   next()
 });
 
-
 //API ROUTES
 app.use('/api', require("./API_routes/index.js"))
-// app.use('/auth', require("./auth/auth.js"))
+app.use('/auth', require("./auth_routes/auth.js"))
 
 
 app.get("/hello", (req, res) => {

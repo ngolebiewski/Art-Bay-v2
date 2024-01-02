@@ -117,7 +117,7 @@ async function main() {
           inStock: true,
           dimensions: "20x20",
           year: 2019,
-          imgUrl: "https://imgur.com/gallery/LdPENU0",
+          imgUrl: "https://i.imgur.com/ye3qTxN.jpeg",
           medium: "Ink and acrylic",
           artistId: artist1.id
         },
