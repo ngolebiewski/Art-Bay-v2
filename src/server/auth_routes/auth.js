@@ -14,6 +14,7 @@ app.use(bodyParser.json());
 //     { id: 2, username: 'user2', password: 'password2' },
 //   ];
 
+
 // // Middleware to verify JWT token
 // const authenticateToken = (req, res, next) => {
 //   const token = req.header('Authorization');
@@ -25,6 +26,22 @@ app.use(bodyParser.json());
 //     next();
 //   });
 // };
+
+// Secret key for JWT 
+const JWT_SECRET = "Pizza";
+
+// Middleware to verify JWT token
+const authenticateToken = (req, res, next) => {
+  const token = req.header('Authorization');
+  if (!token) return res.sendStatus(401);
+
+  jwt.verify(token, JWT_SECRET, (err, user) => {
+    if (err) return res.sendStatus(403);
+    req.user = user;
+    next();
+  });
+};
+
 
 router.use('/login', require('./loginRoute.js'))
 router.use('/register', require('./registerRoute.js'))

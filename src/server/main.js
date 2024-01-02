@@ -5,6 +5,9 @@ const morgan = require('morgan');
 const jwt = require('jsonwebtoken');
 const app = express();
 
+const { PrismaClient } = require('@prisma/client')                  //imported prisma to make register form and future routes work
+const prisma = new PrismaClient();
+
 //logging middleware 
 app.use(morgan("dev"));
 
@@ -27,7 +30,6 @@ app.use((req, res, next) => {
   console.log("USER: ", req.user);
   next()
 });
-
 
 //API ROUTES
 app.use('/api', require("./API_routes/index.js"))
