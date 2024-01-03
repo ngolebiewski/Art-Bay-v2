@@ -19,6 +19,7 @@ const Cart = () => {
   const [userId, setUserId] = useState(null);
   const [userCart, setUserCart] = useState(null);
   const [cartItems, setCartItems] = useState([])
+  const [cartItem, setCartItem] = useState({})
 
   //check userID
 
@@ -62,7 +63,7 @@ const Cart = () => {
     return (
       <>
         <h1>In the future you can shop as a Guest.<br />
-          In the meantime, {<Link to='/register'>Register</Link>} or {<Link to='/login'>Login</Link>} to start shopping</h1>
+          In the meantime, {<Link to='/login'>Login or Register</Link>} to start shopping</h1>
       </>
     )
   }
@@ -72,6 +73,7 @@ const Cart = () => {
     <>
       <h1>You're logged in as user #{userId}</h1>
       <h1>Cart goes here</h1>
+      <CartItem cartItemId={cartItemId}/>
     </>
   )
 
