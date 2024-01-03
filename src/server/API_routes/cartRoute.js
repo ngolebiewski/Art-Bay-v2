@@ -9,9 +9,9 @@ const router = express.Router();
 //TBD
 
 
-////////////////////////
-///// HELPER FUNCTIONS
-////////////////////////
+/////////////////////////
+///// HELPER FUNCTIONS //
+/////////////////////////
 
 const makeCart = async () => {
   console.log("hi");
