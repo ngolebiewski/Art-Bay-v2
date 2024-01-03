@@ -1,25 +1,36 @@
 import React, { useState } from "react";
 import {useNavigate} from "react-router-dom";
-import { Axios } from "axios";
+import axios from 'axios';
 
 const LoginForm = ({setToken}) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const { login } = useAuth();
+  const navigate = useNavigate();
 
 const handleLogin = async () => {
   try {
-    const { data: token } = await axios.post("/auth/login", {
+    const response = await axios.post("/login", {
       username,
       password,
     });
-    localStorage.setItem("TOKEN", token.token);
-    setToken(token.token);
+
+    const { token } = response.data;
+    // save token
+    localStorage.setItem("TOKEN", token);
+    setToken(token);
+    console.log(token)
     navigate("/");
   } catch (error) {
-    console.error(error);
+      if (error.response) {
+        console.error("Server Error:", error.response.data);
+      } else if (error.request) {
+        // if a request was made but no response was received
+        console.error("Network Error:", error.request);
+      } else {
+        console.error("Error:", error.message);
+      }
   }
-}
+};
 
   return (
     <div>
@@ -39,7 +50,6 @@ const handleLogin = async () => {
     </div>
   </div>
 );
-}
+};
   
-
 export default LoginForm;
