@@ -11,28 +11,52 @@ const prisma = require ("../client");
 
 
 // ROUTE: api/cart --> gets the current cart for the user (Need a token)
-// router.get('/', async (req, res, next) => {
-//   if (!req.user) {
-//     return;
-//     //get guest cart from local storage
-//     //logic in front end?
-//     //TBD
-//   }
+router.get('/', async (req, res, next) => {
+  if (!req.user) {
+    res.status(401).send("You're a guest, but please keep on shopping. Feel free to register!")
+    return;
+    //get guest cart from local storage
+    //logic in front end?
+    //TBD
+  }
 
-//   try {
-//     const userCart = await prisma.art.findUnique({
-//       where: {
-//         "user_id":req.user.id
+  //This is a logged-in user. 
+  //see if they have an active cart (aka orderDetail) =>
+    // is there an orderDetail with their id & a 'false' for is complete?
+    // If not make a new cart that will be false.
+  try {
+    const userCart = await prisma.orderDetail.findUnique({
+      where: {
+        userId:+req.user.id,
+      },
+      select: {
+        isComplete:false,
+      },
+  })
 
-//     }})
+  if (userCart) { 
+    return res.send(userCart);
+  };
+  
+  // If no active cart, create a new one
+  
+    // router.post await prisma.orderDetail.create({
+      const newCart = await prisma.orderDetail.create({
+      data:{
+        isComplete:false,
+        userId:+req.user.id,
+      }
+    });
 
-//     res.send(allArtworks);
-//   } catch (error) {
-//     console.error(error)
-//     next(error);
-//   } 
+  return res.send(newCart);
+  
 
-// });
+  } catch (error) {
+    console.error(error)
+    next(error);
+  } 
+
+});
 
 
 // PUT api/cart/:id --> Add product to cart
@@ -47,3 +71,4 @@ const prisma = require ("../client");
 
 
 module.exports = router;
+

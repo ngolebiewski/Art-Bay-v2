@@ -13,14 +13,14 @@ router.get('/', async (req, res) => {
 
     //   const user = await prisma.user.findUnique({
     //     where: { username: username , password: password},
-
+})
 
     //   });
 
-router.post('/', async (req, res) => {
-    try {
-      const { username, password } = req.body;
-      const user = users.find(u => u.username === username);
+// router.post('/', async (req, res) => {
+//     try {
+//       const { username, password } = req.body;
+//       const user = users.find(u => u.username === username);
 
   
     //   // if (user && (await bcrypt.compare(password, user.password))) {
@@ -33,5 +33,5 @@ router.post('/', async (req, res) => {
     // } catch (error) {
     //   res.status(500).json({ error: 'Internal server error' });
     // }
-  });
+
   module.exports = router;
