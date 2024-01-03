@@ -3,6 +3,7 @@ import Navigation from './Navigation.jsx';
 import Home from './Home.jsx';
 import Artwork from './Artwork.jsx';
 import ArtworkDetail from './ArtworkDetail.jsx';
+import ArtistDetail from './ArtistDetail.jsx'
 import LoginForm from './LoginForm.jsx';
 import Register from './Register.jsx';
 import Header from './Header.jsx';
@@ -23,6 +24,7 @@ const App = () =>{
           <Route path='/' element={<Home />} />
           <Route path='/artwork' element={<Artwork />} />
           <Route path='/artwork/:id' element={<ArtworkDetail />} /> 
+          <Route path='/artist/:id' element={<ArtistDetail />} /> 
           <Route path='/cart' element={<Cart />} />
           <Route path='/checkout' element={<Checkout />} />
           <Route path='/login' element={<LoginForm />} />
