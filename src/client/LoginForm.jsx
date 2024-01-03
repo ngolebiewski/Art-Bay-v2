@@ -7,7 +7,7 @@ const LoginForm = ({setToken}) => {
   const [password, setPassword] = useState("");
   const { login } = useAuth();
 
-const handleLogin = () => {
+const handleLogin = async () => {
   try {
     const { data: token } = await axios.post("/auth/login", {
       username,
@@ -21,39 +21,25 @@ const handleLogin = () => {
   }
 }
 
-};
-
   return (
-    <>
-      <h2>Login or Register!</h2>
-      <form onSubmit={handleSubmit}>
-        <label>
-            Username:
-                <input 
-                type="text" 
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}                            // takes what the user typed in and puts it in the state
-                required                                                                 // must provide username to submit - same for password below
-        />
-        </label>
-        <br />
-        <label>
-            password:
-                <input
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-        />
-        </label>
-        <br />
-        <button type = "submit"> Login!</button>
-        {/* <Link to="/registration">                                                   // add registration feature / route later 
-            <button type="button">Sign up!</button>                                     // also need to import Link from react router
-        </Link> */}
-      </form>
-    </>
-  );
-};
+    <div>
+    <h2>Login</h2>
+    <div>
+      <input
+        placeholder="username"
+        value={username}
+        onChange={(e) => setUsername(e.target.value)}
+      />
+      <input
+        placeholder="password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+      />
+      <button onClick={handleLogin}>Login</button>
+    </div>
+  </div>
+);
+}
+  
 
 export default LoginForm;
