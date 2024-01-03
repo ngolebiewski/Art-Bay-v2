@@ -21,10 +21,14 @@ router.get('/:id', async (req, res, next) => {
   const artistId = parseInt(req.params.id);
 
   try {
-     const singleArtist = await prisma.art.findUnique({
+     const singleArtist = await prisma.artist.findUnique({
       where: {
         id: artistId,
+      },
+      include:{
+        arts: true,
       }
+
      });
     res.send(singleArtist);
   } catch (error) {
@@ -32,6 +36,7 @@ router.get('/:id', async (req, res, next) => {
     next(error);
   }
 });
+
 
 // isAdmin? helper function
 const adminStatus = async (id) =>{

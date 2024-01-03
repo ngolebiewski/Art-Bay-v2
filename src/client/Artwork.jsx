@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const Artwork = () => {
-  const [artwork, setArtwork] = useState([])
+  const [artworks, setArtworks] = useState([])
 
-  console.log("artwork", artwork)
+
 
   useEffect(() => {
     async function getArtwork() {
       try {
         const { data: foundArtwork } = await axios.get("/api/art")
-        setArtwork(foundArtwork)
+        setArtworks(foundArtwork)
       }
       catch (error) {
         console.log(error)
@@ -20,22 +21,23 @@ const Artwork = () => {
     getArtwork()
   }, [])
 
+  
 
   return (
     <div>
       <h2>All Artworks</h2>
-
-      {artwork.map((artwork) => (
-        <div key={artwork.id} >
-          <h3>Title: {artwork.title}</h3>
-          <h3>Artist: {artwork.artist}</h3>
-          <p>Description: {artwork.description}</p>
-          <img src={artwork.imgUrl} alt={`Artwork titled ${artwork.title}`}  style={{ width: '300px', height: '300px' }}/>
+      {artworks.map((artwork) => (
+        <div key={artwork.id}>
+          <img src={artwork.imgUrl} alt={`Artwork titled ${artwork.title}`} style={{ width: '300px', height: '300px' }} />
+          <Link to={`/artwork/${artwork.id}`}>
+            <h3>Title: {artwork.title}</h3>
+          </Link>
+          <p>Price: ${artwork.price}</p>
+          <p>In Stock: {artwork.inStock ? 'Yes' : 'No'}</p>
         </div>
       ))}
-
     </div>
-
+  
 
 
   )
