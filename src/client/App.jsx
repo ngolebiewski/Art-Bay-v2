@@ -9,8 +9,10 @@ import Register from './Register.jsx';
 import Header from './Header.jsx';
 import Cart from './Cart.jsx';
 import Checkout from './Checkout.jsx';
+import { useState } from 'react';
 
 const App = () =>{
+  const [token, setToken] = useState(window.localStorage.getItem("TOKEN"));
 
   return (
     <>
@@ -27,7 +29,7 @@ const App = () =>{
           <Route path='/artist/:id' element={<ArtistDetail />} /> 
           <Route path='/cart' element={<Cart />} />
           <Route path='/checkout' element={<Checkout />} />
-          <Route path='/login' element={<LoginForm />} />
+          <Route path='/login' element={<LoginForm setToken={setToken}/>} />
           <Route path='/register' element={<Register />} />
 
         </Routes>
