@@ -4,6 +4,7 @@ const bcrypt = require("bcrypt");
 const prisma = require("../client");
 const router = express.Router();
 
+
 router.post('/', async (req, res,next) => {
     try {
       const { username, password } = req.body;
