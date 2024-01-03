@@ -27,8 +27,6 @@ app.use(bodyParser.json());
 //   });
 // };
 
-// Secret key for JWT 
-const JWT_SECRET = "Pizza";
 
 // Middleware to verify JWT token
 const authenticateToken = (req, res, next) => {

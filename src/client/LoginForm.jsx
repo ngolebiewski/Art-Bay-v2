@@ -1,46 +1,55 @@
 import React, { useState } from "react";
+import {useNavigate} from "react-router-dom";
+import axios from 'axios';
 
-const LoginForm = () => {
+const LoginForm = ({setToken}) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Username:", username);
-    console.log("Password:", password);
-  };
+const handleLogin = async () => {
+  try {
+    const response = await axios.post("/auth/login", {
+      username,
+      password,
+    });
 
-  return (
-    <>
-      <h2>Login or Register!</h2>
-      <form onSubmit={handleSubmit}>
-        <label>
-            Username:
-                <input 
-                type="text" 
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}                            // takes what the user typed in and puts it in the state
-                required                                                                 // must provide username to submit - same for password below
-        />
-        </label>
-        <br />
-        <label>
-            password:
-                <input
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-        />
-        </label>
-        <br />
-        <button type = "submit"> Login!</button>
-        {/* <Link to="/registration">                                                   // add registration feature / route later 
-            <button type="button">Sign up!</button>                                     // also need to import Link from react router
-        </Link> */}
-      </form>
-    </>
-  );
+    const { token } = response.data;
+    // save token
+    localStorage.setItem("TOKEN", token);
+    setToken(token);
+    console.log(token)
+    navigate("/");
+  } catch (error) {
+      if (error.response) {
+        console.error("Server Error:", error.response.data);
+      } else if (error.request) {
+        // if a request was made but no response was received
+        console.error("Network Error:", error.request);
+      } else {
+        console.error("Error:", error.message);
+      }
+  }
 };
 
+  return (
+    <div>
+    <h2>Login</h2>
+    <div>
+      <input
+        placeholder="username"
+        value={username}
+        onChange={(e) => setUsername(e.target.value)}
+      />
+      <input
+        placeholder="password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+      />
+      <button onClick={handleLogin}>Login</button>
+    </div>
+  </div>
+);
+};
+  
 export default LoginForm;
