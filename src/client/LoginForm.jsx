@@ -1,14 +1,27 @@
 import React, { useState } from "react";
+import {useNavigate} from "react-router-dom";
+import { Axios } from "axios";
 
-const LoginForm = () => {
+const LoginForm = ({setToken}) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const { login } = useAuth();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Username:", username);
-    console.log("Password:", password);
-  };
+const handleLogin = () => {
+  try {
+    const { data: token } = await axios.post("/auth/login", {
+      username,
+      password,
+    });
+    localStorage.setItem("TOKEN", token.token);
+    setToken(token.token);
+    navigate("/");
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+};
 
   return (
     <>
