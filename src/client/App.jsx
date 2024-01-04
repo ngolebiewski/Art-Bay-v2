@@ -13,18 +13,24 @@ import { useState } from 'react';
 
 const App = () =>{
   const [token, setToken] = useState(window.localStorage.getItem("TOKEN"));
+  // const [searchResults, setSearchResults] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const handleSearch = (term, results) => {
+    setSearchTerm(term);
+    // setSearchResults(results);
+};
 
   return (
     <>
-     
       <section id="header"> <Header /> </section>
 
-      <section id="navbar"> <Navigation /></section>
+      <section id="navbar"> <Navigation onSearch={handleSearch}/></section>
 
       <section id="main">
         <Routes>
           <Route path='/' element={<Home />} />
-          <Route path='/artwork' element={<Artwork />} />
+          <Route path='/artwork' element={<Artwork onSearch={handleSearch}/>} />
           <Route path='/artwork/:id' element={<ArtworkDetail />} /> 
           <Route path='/artist/:id' element={<ArtistDetail />} /> 
           <Route path='/cart' element={<Cart />} />
