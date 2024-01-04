@@ -19,7 +19,7 @@ const Cart = () => {
   const [userId, setUserId] = useState(null);
   const [userName, setUserName] = useState("Guest");
   const [userCart, setUserCart] = useState([]);
-  const [cartId, setCartId] = useState(null);
+  const [cartId, setCartId] = useState(0);
   const [cartItems, setCartItems] = useState([])
   const [cartItem, setCartItem] = useState({})
   const token = window.localStorage.getItem("TOKEN"); 
@@ -47,6 +47,7 @@ const Cart = () => {
       });
       setUserCart(data[0]);
       setCartId(data[0].id)
+      console.log(cartId)
     } catch (error) {
       console.log(error)
     }
@@ -73,14 +74,13 @@ const Cart = () => {
         await getUser();
         await getCart();
         await getCartItems();
-       
       } catch(error){
         console.error(error)
       }
     }
     getUserCartData();
     
-  }, []);
+  }, [cartId]);
 
   if (!userId) {
     return (
@@ -91,11 +91,26 @@ const Cart = () => {
     )
   }
 
+  if (userId && !cartItems[0]) {
+    return (
+      <>
+        <h1>Hello, you're logged in as {userName}</h1>
+        <h1>Cart</h1>
+        <h2><Link to='/artwork'>Start Shopping</Link> to add something to your Cart! <br />
+        100% of profits go to the artists, we don't take a cut, because we're artists too. </h2>
+      </>
+    )
+  }
+
+  if (cartItems[0])
   return (
     <>
       <h1>Hello, you're logged in as {userName}</h1>
       <h1>Cart</h1>
-      <CartItem cartItems={cartItems} />
+      {/* cartid {cartId}<br />
+      userid {userId} */}
+      {cartItems[0] ? <CartItem cartItems={cartItems} /> : <p>Loading...</p> }
+      <button><Link to="/checkout">Checkout</Link></button>
     </>
   )
 
