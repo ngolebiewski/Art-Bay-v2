@@ -164,7 +164,44 @@ async function main() {
           artistId: artist3.id
         },
       });
+      const OrderDetail1 = await prisma.orderDetail.create({
+          data: {
+              isComplete: false,
+              userId: 1, 
+              cartItems: {
+                  create: [{ quantity: 5, artId: 3 }]
+              }
+          },
+      })
 
+      const OrderDetail2 = await prisma.orderDetail.create({
+        data: {
+            isComplete: false,
+            userId: 2, 
+            cartItems: {
+                create: [{ quantity: 3, artId: 2 }]
+            }
+        },
+    })
+
+    const OrderDetail3 = await prisma.orderDetail.create({
+      data: {
+          isComplete: false,
+          userId: 3, 
+          cartItems: {
+              create: [{ quantity: 1, artId: 5 }]
+          }
+      },
+  })
+  const OrderDetail4 = await prisma.orderDetail.create({
+    data: {
+        isComplete: true,
+        userId: 1, 
+        cartItems: {
+            create: [{ quantity: 1, artId: 2 }]
+        }
+    },
+})
 
   }
   

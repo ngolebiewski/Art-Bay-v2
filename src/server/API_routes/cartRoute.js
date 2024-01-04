@@ -86,6 +86,25 @@ router.get("/", async (req, res, next) => {
   }
 });
 
+//Route GET api/cart/:id
+//gets all the cart items in a specific cart
+router.get("/:id", async (req, res, next) => {
+  const { id } = req.params
+
+  try {
+    const allCartItems = await prisma.cartItem.findMany({
+      where: {
+        orderId:+id,
+      }
+    })
+    return res.send(allCartItems);
+  }
+  catch (error) {
+    console.error(error);
+    next(error);
+  }
+}),
+
 ////////////////////
 ///// POST /////////
 ////////////////////

@@ -1,17 +1,42 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import {useNavigate} from "react-router-dom";
+import axios from 'axios';
 
-const LoginForm = () => {
+const LoginForm = ({setToken}) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Username:", username);
-    console.log("Password:", password);
-  };
+const handleLogin = async (event) => {
+  event.preventDefault(); 
+  try {
+    const response = await axios.post("/auth/login", {
+      username,
+      password,
+    });
 
-  return (
+
+    const { token } = response.data;
+    // save token
+    localStorage.setItem("TOKEN", token);
+    localStorage.setItem("USERNAME", username);
+    setToken(token);
+    console.log(token)
+    navigate("/");
+  } catch (error) {
+      if (error.response) {
+        console.error("Server Error:", error.response.data);
+      } else if (error.request) {
+        // if a request was made but no response was received
+        console.error("Network Error:", error.request);
+      } else {
+        console.error("Error:", error.message);
+      }
+  }
+};
+
+ return (
     <>
       <h2>Sign In</h2>
       <form onSubmit={handleSubmit}>
@@ -46,6 +71,5 @@ const LoginForm = () => {
       </form>
     </>
   );
-};
-
+  
 export default LoginForm;

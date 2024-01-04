@@ -28,8 +28,6 @@ app.use(bodyParser.json());
 // };
 
 
-
-
 // Middleware to verify JWT token
 // const authenticateToken = (req, res, next) => {
 //   const token = req.header('Authorization');
