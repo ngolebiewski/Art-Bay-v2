@@ -7,7 +7,8 @@ const LoginForm = ({setToken}) => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-const handleLogin = async () => {
+const handleLogin = async (event) => {
+  event.preventDefault(); 
   try {
     const response = await axios.post("/auth/login", {
       username,
@@ -17,6 +18,7 @@ const handleLogin = async () => {
     const { token } = response.data;
     // save token
     localStorage.setItem("TOKEN", token);
+    localStorage.setItem("USERNAME", username);
     setToken(token);
     console.log(token)
     navigate("/");
@@ -35,7 +37,7 @@ const handleLogin = async () => {
   return (
     <div>
     <h2>Login</h2>
-    <div>
+    <form onSubmit={handleLogin}>
       <input
         placeholder="username"
         value={username}
@@ -47,7 +49,7 @@ const handleLogin = async () => {
         onChange={(e) => setPassword(e.target.value)}
       />
       <button onClick={handleLogin}>Login</button>
-    </div>
+    </form>
   </div>
 );
 };

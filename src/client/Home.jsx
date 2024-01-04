@@ -1,8 +1,16 @@
+import React from 'react';
+
 const Home = () => {
+  const username = localStorage.getItem("USERNAME");
+
   return(
-    <>
-    <h1>Hello World, welcome to Art-Bay!</h1>
-    </>
+    <div>
+    {username ? (
+      <h1>Welcome, {username}!</h1>
+    ) : (
+      <h1>Welcome to our site!</h1>
+    )}
+  </div>
   )
 }
 
