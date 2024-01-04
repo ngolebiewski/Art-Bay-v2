@@ -17,6 +17,7 @@ import CartItem from "./CartItem";
 const Cart = () => {
 
   const [userId, setUserId] = useState(null);
+  const [userName, setUserName] = useState("Guest");
   const [userCart, setUserCart] = useState([]);
   const [cartId, setCartId] = useState(null);
   const [cartItems, setCartItems] = useState([])
@@ -31,6 +32,7 @@ const Cart = () => {
         },
       });
       setUserId(response.data.id)
+      setUserName(response.data.firstName)
     } catch (error) {
       console.error(error)
     }
@@ -69,23 +71,16 @@ const Cart = () => {
     const getUserCartData = async () => {
       try{
         await getUser();
-          
         await getCart();
-          console.log(userCart) // Object { id: 5, paymentDate: "2024-01-04T04:33:20.331Z", isComplete: false, userId: 6 }
-          console.log(cartId) // 5
-
         await getCartItems();
-          console.log(cartItems)
-
+       
       } catch(error){
         console.error(error)
       }
     }
     getUserCartData();
     
-    setUserId(userId);
-    setUserId(userId);
-  }, [userId, cartId]);
+  }, []);
 
   if (!userId) {
     return (
@@ -98,7 +93,7 @@ const Cart = () => {
 
   return (
     <>
-      <h1>You're logged in as user #{userId}</h1>
+      <h1>Hello, you're logged in as {userName}</h1>
       <h1>Cart</h1>
       <CartItem cartItems={cartItems} />
     </>

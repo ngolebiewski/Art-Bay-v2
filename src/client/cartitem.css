@@ -1,0 +1,10 @@
+.cart-item{
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  border: 1px solid magenta;
+}
+
+.cart-item > div{
+  margin:10px
+}

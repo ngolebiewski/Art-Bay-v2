@@ -1,5 +1,7 @@
+import './cartitem.css'
 import { useEffect, useState } from "react"
 import axios from "axios"
+
 
 
 //from CartItem GET: id, quantity, artId
@@ -11,7 +13,7 @@ const CartItem = ({ cartItems }) => {
 
   const [cartArt, setCartArt] = useState({});
   const [artSpecs, setArtSpecs] = useState({});
-  const [itemQuantity, setItemQuantity] = useState(0);
+  const [itemQuantity, setItemQuantity] = useState(1);
 
   // const getCartItem = async () => {
   //   try {
@@ -22,28 +24,60 @@ const CartItem = ({ cartItems }) => {
   //   }
   // }
 
-  const getArtSpecs = async (artId) => {
-    try {
-      const currentArtwork = await axios.get(`/api/art/${cartArt.artId}`)
-      // setArtSpecs(currentArtwork)
-      return currentArtwork;
-    } catch (error) {
-      console.log(error);
-    }
-  }
+  // const getArtSpecs = async (artId) => {
+  //   try {
+  //     const currentArtwork = await axios.get(`/api/art/${cartArt.artId}`)
+  //     // setArtSpecs(currentArtwork)
+  //     return currentArtwork;
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }
 
-  cartItems.map((eachItem)=> {
-    // const art = getArtSpecs(eachItem.artId)
-    // console.log(art)
-    return(
-      <div className="cart-item" key={eachItem.id}>
+  // cartItems.map((eachItem)=> {
+  //   // const art = getArtSpecs(eachItem.artId)
+  //   // console.log(art)
+  //   return(
+  //     <div className="cart-item" key={eachItem.id}>
+  //       <div>
+  //         Hi
+  //       </div>
+  //     </div>
+  //   )
+  //     })
+  //   }
+
+  return(
+    <>
+      <div className="cart-item">
         <div>
-          Hi
+          Art Image
         </div>
+        <div>
+          Artwork Name
+        </div>
+        <div>
+          <label>
+            Quantity:
+            <input
+              type="number"
+              value={itemQuantity}
+              // defaultValue={itemQuantity}
+              onChange={(e) => setItemQuantity(e.target.value)}
+              required
+            />
+          </label>
+        </div>
+        <div>
+          <button>Update Cart</button>
+        </div>
+        <div>
+          <button>Remove from Cart</button>
+        </div>
+
       </div>
-    )
-      })
-    }
+    </>
+  )}
 
 export default CartItem
 
