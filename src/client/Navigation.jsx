@@ -9,14 +9,21 @@ const Navigation = () => {
     <>
   <nav>
     <Link className='nav-link' to='/'>Home</Link>
-    <Link className='nav-link' to='/artwork'>Browse All</Link>
+    <Link className='nav-link' to='/artwork'>Browse </Link>
     <Link className='nav-link' to='/login'>Login</Link>
-    <Link className='nav-link' to='/register'>Register</Link>
     <Link className='nav-link' to='/cart'>Cart</Link>
-    <Link className='nav-link' to='/checkout'>Checkout</Link>
+    {/* <Link className='nav-link' to='/register'>Register</Link> */}
+    {/* <Link className='nav-link' to='/checkout'>Checkout</Link> */}
   </nav>
   </>
   )
 }
 
 export default Navigation
+
+
+// I commented out 2 of the links above^^
+// I think 'login' should take the user to 'register' if they click the button on the login page - rather than be its own NAV
+// in the same regard, 'checkout' should be within 'cart' and not on the NAV either
+// maybe we have a fake 'help' or 'contants' now that we have all this room on the NAV
+// or maybe the instead of that we put a search bar?

@@ -20,6 +20,7 @@ router.post('/', async (req, res) => {
         isAdmin: false,                        
       },
     });
+    console.log("NEW USER", newUser)
     const token = jwt.sign({id: newUser.id, username: newUser.username}, process.env.JWT_SECRET)
     res.status(201).send({token})
 

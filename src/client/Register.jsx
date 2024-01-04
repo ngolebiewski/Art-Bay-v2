@@ -1,29 +1,44 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const Register = () => {
+  const navigate = useNavigate();
+
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleRegistrationSubmit = (e) => {
+  const handleRegistrationSubmit = async (e) => {
     e.preventDefault();
 
-    console.log("Registration Email Provided:", email);
-    console.log("Registration First Name Provided:", firstName);
-    console.log("Registration Last Name Provided:", lastName);
-    console.log("Registration Username Provided:", username);
-    console.log("Registration Password Provided:", password);
+    try {
+      const response = await axios.post("/auth/register", {
+        email,
+        firstName,
+        lastName,
+        username,
+        password,
+      });
+
+      const token = response.data.token;
+      localStorage.setItem("TOKEN", token);
+      navigate("/welcome");
+    } catch (error) {
+      console.error("Error - Could Not Register New User", error);
+    }
   };
 
   return (
     <>
-      <h2>Register here!</h2>
+      <h2>Create account</h2>
       <br />
       <form onSubmit={handleRegistrationSubmit}>
         <label>
-          Email:
+          Email
+          <br />
           <input
             type="email"
             value={email}
@@ -34,7 +49,8 @@ const Register = () => {
         <br />
 
         <label>
-          First Name:
+          First Name
+          <br />
           <input
             type="text"
             value={firstName}
@@ -45,7 +61,8 @@ const Register = () => {
         <br />
 
         <label>
-          Last Name:
+          Last Name
+          <br />
           <input
             type="text"
             value={lastName}
@@ -56,7 +73,7 @@ const Register = () => {
         <br />
 
         <label>
-          Username:
+          Username <br />
           <input
             type="text"
             value={username}
@@ -67,7 +84,8 @@ const Register = () => {
         <br />
 
         <label>
-          Password:
+          Password
+          <br />
           <input
             type="password"
             value={password}
@@ -76,8 +94,8 @@ const Register = () => {
           />
         </label>
         <br />
-
-        <button type="submit">Register!</button>
+        <br />
+        <button type="submit">Continue</button>
       </form>
     </>
   );
