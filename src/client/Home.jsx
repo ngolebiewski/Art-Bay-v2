@@ -1,9 +1,10 @@
+
 import React, {useState} from 'react';
 
 const Home = ({ onSearch }) => {
   const [searchResults, setSearchResults] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
-  
+    const username = localStorage.getItem("USERNAME");
   const handleSearch = async (term) => {
     try {
       const response = await axios.get(`/artwork?q=${term}`);
@@ -21,7 +22,11 @@ const Home = ({ onSearch }) => {
   return(
     <>
     <header>
-      <h1>Hello World, welcome to Art-Bay!</h1>
+          {username ? (
+      <h1>Welcome, {username}!</h1>
+    ) : (
+      <h1>Welcome to our site!</h1>
+    )}
     
     </header>
     {searchTerm && (
@@ -35,5 +40,6 @@ const Home = ({ onSearch }) => {
     </>
   );
 };
+
 
 export default Home;

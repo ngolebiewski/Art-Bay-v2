@@ -1,0 +1,17 @@
+.cart-item{
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-items:center;
+  border: 1px solid magenta;
+  margin:5px
+}
+
+.cart-item > div{
+  margin:10px
+}
+
+.cart-image > img {
+  width:100px;
+  max-height:100px
+}
