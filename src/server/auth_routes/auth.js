@@ -27,20 +27,20 @@ app.use(bodyParser.json());
 //   });
 // };
 
-// Secret key for JWT 
-const JWT_SECRET = "Pizza";
+
+
 
 // Middleware to verify JWT token
-const authenticateToken = (req, res, next) => {
-  const token = req.header('Authorization');
-  if (!token) return res.sendStatus(401);
+// const authenticateToken = (req, res, next) => {
+//   const token = req.header('Authorization');
+//   if (!token) return res.sendStatus(401);
 
-  jwt.verify(token, JWT_SECRET, (err, user) => {
-    if (err) return res.sendStatus(403);
-    req.user = user;
-    next();
-  });
-};
+//   jwt.verify(token, JWT_SECRET, (err, user) => {
+//     if (err) return res.sendStatus(403);
+//     req.user = user;
+//     next();
+//   });
+// };
 
 
 router.use('/login', require('./loginRoute.js'))
