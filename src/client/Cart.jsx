@@ -19,9 +19,10 @@ const Cart = () => {
   const [userId, setUserId] = useState(null);
   const [userName, setUserName] = useState("Guest");
   const [userCart, setUserCart] = useState([]);
-  const [cartId, setCartId] = useState(null);
+  const [cartId, setCartId] = useState(0);
   const [cartItems, setCartItems] = useState([])
   const [cartItem, setCartItem] = useState({})
+  const [refresh, setRefresh] = useState(false)
   const token = window.localStorage.getItem("TOKEN"); 
 
   const getUser = async () => {
@@ -47,6 +48,7 @@ const Cart = () => {
       });
       setUserCart(data[0]);
       setCartId(data[0].id)
+      console.log(cartId)
     } catch (error) {
       console.log(error)
     }
@@ -73,14 +75,18 @@ const Cart = () => {
         await getUser();
         await getCart();
         await getCartItems();
-       
       } catch(error){
         console.error(error)
       }
     }
     getUserCartData();
     
-  }, []);
+  }, [cartId, refresh ]);
+
+
+  if (refresh) {
+    setRefresh(false);
+  }
 
   if (!userId) {
     return (
@@ -91,14 +97,33 @@ const Cart = () => {
     )
   }
 
+  if (userId && !cartItems[0]) {
+    localStorage.setItem("USERID", userId);
+    localStorage.setItem("USERCARTID", cartId);
+    return (
+      <>
+        <h1>Hello, you're logged in as {userName}</h1>
+        <h1>Cart</h1> 
+        cartid {cartId} userid {userId}
+        <h2><Link to='/artwork'>Start Shopping</Link> to add something to your Cart! <br />
+        100% of profits go to the artists, we don't take a cut, because we're artists too. </h2>
+      </>
+    )
+  }
+
+  if (cartItems[0]) {
+  localStorage.setItem("USERID", userId);
+    localStorage.setItem("USERCARTID", cartId);
   return (
     <>
       <h1>Hello, you're logged in as {userName}</h1>
       <h1>Cart</h1>
-      <CartItem cartItems={cartItems} />
+      cartid {cartId} userid {userId}
+      {cartItems[0] ? <CartItem cartItems={cartItems} setRefresh={setRefresh} refresh={refresh} /> : <p>Loading...</p> }
+      <button><Link to="/checkout">Checkout</Link></button>
     </>
   )
-
+  }
 }
 
 export default Cart
