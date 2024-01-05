@@ -52,7 +52,7 @@ useEffect(() => {
       <section id="header"> <Header /> </section>
 
       <section id="navbar"> <Navigation user={user} setToken={setToken} onSearch={handleSearch}/></section>
-
+      
       {user ? (
         <Routes>
           <Route path='/' element={<Home />} />

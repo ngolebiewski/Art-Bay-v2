@@ -9,6 +9,10 @@ body {
   margin: 0;
   padding: 0;
 }
+
+h2 {
+  margin-left: 10px;
+}
 /* 
 #navbar {
   border-bottom: 10px solid black;
