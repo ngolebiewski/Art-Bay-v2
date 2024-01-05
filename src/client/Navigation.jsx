@@ -30,7 +30,7 @@ const Navigation = ({ user, setToken, onSearch }) => {
     <Link className='nav-link' to='/'>Home</Link>
     <Link className='nav-link' to='/artwork'>Browse </Link>
     <Link className='nav-link' to='/login'>Login</Link>
-    <Link className='nav-link' to='/register'>Register</Link>
+    {/* <Link className='nav-link' to='/register'>Register</Link> */}
     <Link className='nav-link' to='/cart'>Cart</Link>
     <SearchBar onSearch={onSearch} />
 </div>
