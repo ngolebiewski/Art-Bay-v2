@@ -104,7 +104,6 @@ const Cart = () => {
       <>
         <h1>Hello, you're logged in as {userName}</h1>
         <h1>Cart</h1> 
-        cartid {cartId} userid {userId}
         <h2><Link to='/artwork'>Start Shopping</Link> to add something to your Cart! <br />
         100% of profits go to the artists, we don't take a cut, because we're artists too. </h2>
       </>
@@ -118,7 +117,6 @@ const Cart = () => {
     <>
       <h1>Hello, you're logged in as {userName}</h1>
       <h1>Cart</h1>
-      cartid {cartId} userid {userId}
       {cartItems[0] ? <CartItem cartItems={cartItems} setRefresh={setRefresh} refresh={refresh} /> : <p>Loading...</p> }
       <button><Link to="/checkout">Checkout</Link></button>
     </>
