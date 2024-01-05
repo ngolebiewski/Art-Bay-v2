@@ -16,6 +16,7 @@ const CartItem = ({ cartItems, refresh, setRefresh}) => {
   const [cartArt, setCartArt] = useState({});
   const [artSpecs, setArtSpecs] = useState({});
   const [cartArray, setCartArray] = useState([])
+  const [totalAmount, setTotalAmount] = useState(0)
   const [itemQuantity, setItemQuantity] = useState(1);
 
 

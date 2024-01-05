@@ -98,6 +98,8 @@ const Cart = () => {
   }
 
   if (userId && !cartItems[0]) {
+    localStorage.setItem("USERID", userId);
+    localStorage.setItem("USERCARTID", cartId);
     return (
       <>
         <h1>Hello, you're logged in as {userName}</h1>
@@ -109,7 +111,9 @@ const Cart = () => {
     )
   }
 
-  if (cartItems[0])
+  if (cartItems[0]) {
+  localStorage.setItem("USERID", userId);
+    localStorage.setItem("USERCARTID", cartId);
   return (
     <>
       <h1>Hello, you're logged in as {userName}</h1>
@@ -119,7 +123,7 @@ const Cart = () => {
       <button><Link to="/checkout">Checkout</Link></button>
     </>
   )
-
+  }
 }
 
 export default Cart
