@@ -1,68 +1,66 @@
 import React from "react";
 import { Link, useNavigate } from 'react-router-dom';
 import SearchBar from './SearchBar';
-
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-
+import NavLink from 'react-bootstrap/NavLink';
+import Form from 'react-bootstrap/Form';
+import FormControl from 'react-bootstrap/FormControl';
+import Button from 'react-bootstrap/Button';
 
 const Navigation = ({ user, setToken, onSearch }) => {
   const navigate = useNavigate();
-  function handleLogout() {
+
+  function handleLogout(event) {
+    event.preventDefault();
     window.localStorage.removeItem("TOKEN");
     window.localStorage.removeItem("USERNAME");
     setToken("");
     navigate("/");
   }
-  return(
+  return (
     <>
-    <Navbar bg="dark" data-bs-theme="dark">
-    <Container>
-      <Navbar.Brand href="/">Art-Bay</Navbar.Brand>
-      <Nav className="me-auto">
-        <Nav.Link href="/">Home</Nav.Link>
-        <Nav.Link href="/artwork">Browse</Nav.Link>
-        <Nav.Link href="#pricing">Pricing</Nav.Link>
-      </Nav>
-    </Container>
-  </Navbar>
-
-      <Navbar bg="dark" data-bs-theme="dark">
+      <Navbar bg="dark" data-bs-theme="dark" expand="lg">
         <Container>
           <Navbar.Brand href="/">Art-Bay</Navbar.Brand>
           <Nav className="me-auto">
-            
-            
-          {user ? (
-    <div>
-    <Link className='nav-link' to='/'>Home</Link>
-    <Link className='nav-link' to='/artwork'>Browse </Link>
-    <Link className='nav-link' to='/cart'>Cart</Link>
-    {/* <Link className='nav-link' to='/checkout'>Checkout</Link> */}
-    {/* Maybe Profile or Account page should appear once the user is logged in */}
-    <button onClick={handleLogout}>Logout</button>
-    <SearchBar onSearch={onSearch} />
-</div>) : (
-    <div>
-    <Nav.Link className='nav-link' to='/'>Home</Nav.Link>
-    <Nav.Link className='nav-link' to='/artwork'>Browse </Nav.Link>
-    <Nav.Link className='nav-link' to='/login'>Login</Nav.Link>
-    {/* <Link className='nav-link' to='/register'>Register</Link> */}
-    <Nav.Link className='nav-link' to='/cart'>Cart</Nav.Link>
-    <SearchBar onSearch={onSearch} />
-</div>
-)}
+            <Nav.Link href="/">Home</Nav.Link>
+            <Nav.Link href="/artwork">Browse</Nav.Link>
+            <Nav.Link href="/cart">Cart</Nav.Link>
+            {user ? (
+              <>
+                <NavLink onClick={handleLogout} href="/logout">Logout</NavLink>
+                <span className="navbar-text mx-3">Signed in as: <strong>{user.username}</strong></span>
+              </>) : (
+              <>
+                <Nav.Link href="/login">Login</Nav.Link>
+              </>
+            )}
 
-
-
-           
           </Nav>
+          <Form inline className="d-flex">
+            <FormControl
+              type="text"
+              placeholder="Search for Art or Artist"
+              className="mr-sm-2"
+              onChange={(e) => onSearch(e.target.value)}
+            />
+            <Button variant="outline-success">Search</Button>
+          </Form>
         </Container>
       </Navbar>
-      </>
 
-    
+
+
+
+
+
+
+
+    </>
+
+
   );
 };
 
