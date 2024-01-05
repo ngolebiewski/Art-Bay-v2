@@ -5,11 +5,11 @@ body {
 #header-h1 {
   font-weight: 800;
   font-style: italic;
-  font-size: 3em;
+  font-size: 4em;
   margin: 0;
   padding: 0;
 }
-
+/* 
 #navbar {
   border-bottom: 10px solid black;
   display: flex;
@@ -34,4 +34,4 @@ body {
 .nav-link:hover {
   text-decoration: underline;
   color: magenta;
-}
+} */

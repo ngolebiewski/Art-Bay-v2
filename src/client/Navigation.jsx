@@ -2,9 +2,10 @@ import React from "react";
 import { Link, useNavigate } from 'react-router-dom';
 import SearchBar from './SearchBar';
 
-// TODO: Add in welcome line: ie. welcome Dave...or welcome Guest (text tbd)
-// TODO: Add in token logic to show login/logout/cart
-// TODO: CSS
+import Container from 'react-bootstrap/Container';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+
 
 const Navigation = ({ user, setToken, onSearch }) => {
   const navigate = useNavigate();
@@ -15,8 +16,25 @@ const Navigation = ({ user, setToken, onSearch }) => {
     navigate("/");
   }
   return(
-    <div>
-    {user ? (
+    <>
+    <Navbar bg="dark" data-bs-theme="dark">
+    <Container>
+      <Navbar.Brand href="/">Art-Bay</Navbar.Brand>
+      <Nav className="me-auto">
+        <Nav.Link href="/">Home</Nav.Link>
+        <Nav.Link href="/artwork">Browse</Nav.Link>
+        <Nav.Link href="#pricing">Pricing</Nav.Link>
+      </Nav>
+    </Container>
+  </Navbar>
+
+      <Navbar bg="dark" data-bs-theme="dark">
+        <Container>
+          <Navbar.Brand href="/">Art-Bay</Navbar.Brand>
+          <Nav className="me-auto">
+            
+            
+          {user ? (
     <div>
     <Link className='nav-link' to='/'>Home</Link>
     <Link className='nav-link' to='/artwork'>Browse </Link>
@@ -27,18 +45,27 @@ const Navigation = ({ user, setToken, onSearch }) => {
     <SearchBar onSearch={onSearch} />
 </div>) : (
     <div>
-    <Link className='nav-link' to='/'>Home</Link>
-    <Link className='nav-link' to='/artwork'>Browse </Link>
-    <Link className='nav-link' to='/login'>Login</Link>
+    <Nav.Link className='nav-link' to='/'>Home</Nav.Link>
+    <Nav.Link className='nav-link' to='/artwork'>Browse </Nav.Link>
+    <Nav.Link className='nav-link' to='/login'>Login</Nav.Link>
     {/* <Link className='nav-link' to='/register'>Register</Link> */}
-    <Link className='nav-link' to='/cart'>Cart</Link>
+    <Nav.Link className='nav-link' to='/cart'>Cart</Nav.Link>
     <SearchBar onSearch={onSearch} />
 </div>
 )}
-    {/* <Link className='nav-link' to='/checkout'>Checkout</Link> */}
-    </div>
+
+
+
+           
+          </Nav>
+        </Container>
+      </Navbar>
+      </>
+
+    
   );
 };
+
 
 export default Navigation
 
