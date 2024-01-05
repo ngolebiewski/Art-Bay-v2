@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import Card from 'react-bootstrap/Card';
+import Button from 'react-bootstrap/Button';
+import { Container, Row, Col } from "react-bootstrap";
 
 const ArtistDetail = () => {
   const { id } = useParams();
@@ -24,20 +27,42 @@ const ArtistDetail = () => {
   }
 
   return (
-    <div>
-      <h2>{artistData.name}</h2>
-      <img src={artistData.imgUrl} alt={`Portrait of ${artistData.name}`} style={{ maxWidth: '50%', height: 'auto' }} />
-      <h3>Artworks:</h3>
-      <div>
-        {artistData.arts.map((artwork) => (
-          <div key={artwork.id}>
-            <h4>{artwork.title}</h4>
-            <img src={artwork.imgUrl} alt={`Artwork titled ${artwork.title}`} style={{ width: '200px', height: '200px' }} />
-            <p>{artwork.description}</p>
-          </div>
-        ))}
-      </div>
-    </div>
+    <Container className="m-2" fluid>
+      <Card className="bg-dark text-white">
+        <Row>
+          <Col xs={6} md={4}>
+            <Card className="bg-dark text-white m-2" border="info" key={artistData.id}>
+              <Card.Body>
+                <Card.Title><h3>{artistData.name}</h3></Card.Title>
+                <Card.Img src={artistData.imgUrl} alt={`Portrait of ${artistData.name}`} />
+              </Card.Body>
+            </Card>
+          </Col>
+
+
+          <Col xs={12} md={8}>
+            <Card className="bg-dark text-white m-2" border="info">
+              <Card.Body>
+                <h3>Artworks:</h3>
+                <Container fluid className="d-flex flex-row flex-wrap">
+                  {artistData.arts.map((artwork) => (
+                    <Card className="bg-dark text-white m-2" border="info" style={{ width: '18rem' }} key={artwork.id}>
+                      <Card.Body>
+                        <Card.Title>{artwork.title}</Card.Title>
+                        <Link to={`/artwork/${artwork.id}`}>
+                          <Card.Img className="p-1" variant="top" src={artwork.imgUrl} alt={`Artwork titled ${artwork.title}`} />
+                        </Link>
+                        <Card.Text><p>{artwork.description}</p> </Card.Text>
+                      </Card.Body>
+                    </Card>
+                  ))}
+                </Container>
+              </Card.Body>
+            </Card>
+          </Col>
+        </Row>
+      </Card>
+    </Container>
   );
 };
 
