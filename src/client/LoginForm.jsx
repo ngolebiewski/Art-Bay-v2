@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from 'axios';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const LoginForm = ({ setToken }) => {
   const [username, setUsername] = useState("");
@@ -33,38 +34,42 @@ const LoginForm = ({ setToken }) => {
   };
 
   return (
-    <>
-      <h2>Sign In</h2>
-      <form onSubmit={handleLogin}>
-        <label>
-          Username
-          <br />
-          <input
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-          />
-        </label>
-        <br />
-        <label>
-          Password
-          <br />
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </label>
-        <br />
-        <button type="submit">Login!</button>
-        <p>New to ArtBay?</p>
-        <Link to="/register">
-          <button type="button">Register!</button>
-        </Link>
-      </form>
-    </>
+    <div className="d-flex justify-content-center align-items-start vh-100">
+      <div className="w-100" style={{ maxWidth: '330px', marginTop: '0px' }}>
+        <h2 className="text-center mb-4">Login</h2>
+        <form onSubmit={handleLogin}>
+          <div className="mb-3">
+            <label htmlFor="username" className="form-label">Username</label>
+            <input
+              type="text"
+              id="username"
+              className="form-control"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              required
+            />
+          </div>
+          <div className="mb-3">
+            <label htmlFor="password" className="form-label">Password</label>
+            <input
+              type="password"
+              id="password"
+              className="form-control"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+          <div className="d-grid gap-2">
+            <button type="submit" class="btn btn-primary">Login</button>
+          </div>
+          <p className="text-center mt-3">New to ArtBay?</p>
+          <div className="d-grid gap-2">
+            <Link to="/register" class="btn btn-info">Register</Link>
+          </div>
+        </form>
+      </div>
+    </div>
   );
 };
 
