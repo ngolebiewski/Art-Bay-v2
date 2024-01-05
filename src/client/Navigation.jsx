@@ -21,7 +21,7 @@ const Navigation = ({ user, setToken, onSearch }) => {
     <Link className='nav-link' to='/'>Home</Link>
     <Link className='nav-link' to='/artwork'>Browse </Link>
     <Link className='nav-link' to='/cart'>Cart</Link>
-    <Link className='nav-link' to='/checkout'>Checkout</Link>
+    {/* <Link className='nav-link' to='/checkout'>Checkout</Link> */}
     {/* Maybe Profile or Account page should appear once the user is logged in */}
     <button onClick={handleLogout}>Logout</button>
     <SearchBar onSearch={onSearch} />
