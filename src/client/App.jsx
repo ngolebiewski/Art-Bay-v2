@@ -10,8 +10,10 @@ import Register from './Register.jsx';
 import WelcomeUser from './WelcomeUser.jsx';
 import Cart from './Cart.jsx';
 import Checkout from './Checkout.jsx';
+import PaymentSuccess from './PaymentSuccess.jsx';
 import { useState, useEffect } from 'react';
 import axios from "axios";
+
 
 const App = () =>{
   const [token, setToken] = useState(window.localStorage.getItem("TOKEN"));
@@ -59,6 +61,9 @@ useEffect(() => {
           <Route path='/artist/:id' element={<ArtistDetail />} /> 
           <Route path='/cart' element={<Cart />} />
           <Route path='/checkout' element={<Checkout />} />
+          <Route path='/payment-success' element={<PaymentSuccess />} />
+          <Route path='/login' element={<LoginForm setToken={setToken}/>} />
+          <Route path='/register' element={<Register />} />
           <Route path='/welcome' element={<WelcomeUser />} />
 
         </Routes>
@@ -70,6 +75,7 @@ useEffect(() => {
         <Route path='/artist/:id' element={<ArtistDetail />} /> 
         <Route path='/cart' element={<Cart />} />
         <Route path='/checkout' element={<Checkout />} />
+        <Route path='/payment-success' element={<PaymentSuccess />} />
         <Route path='/login' element={<LoginForm setToken={setToken}/>} />
         <Route path='/register' element={<Register />} />
         <Route path='/welcome' element={<WelcomeUser />} />
