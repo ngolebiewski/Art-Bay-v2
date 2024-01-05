@@ -1,9 +1,11 @@
 const prisma = require("./src/server/client");
 const bcrypt = require("bcrypt");
+const path = require('path');
 
 
 async function main() {
-    //Admin
+                   //Admin
+
     const john = await prisma.user.create({
         data: {
           username: 'john_doe',
@@ -21,7 +23,8 @@ async function main() {
           zipCode: 10001,
         },
       });
-      //Users
+                      //Users
+
       const jane = await prisma.user.create({
         data: {
           username: 'jane_smith',
@@ -75,6 +78,8 @@ async function main() {
         },
     });
 
+              // Artists
+
     const artist1 = await prisma.artist.create({
         data: {
           name: "Jon Shaw",
@@ -95,6 +100,34 @@ async function main() {
           imgUrl: "https://i.imgur.com/GYhUbIG.png", 
         },
       });
+                // NEW
+      const artist4 = await prisma.artist.create({
+        data: {
+            name: "Davide Bramante",
+            imgUrl: "https://i.imgur.com/OGY8d0L.jpg",
+        },
+      });
+
+      const artist5 = await prisma.artist.create({
+        data: {
+            name: "Francioni Mastromarino",
+            imgUrl: "https://i.imgur.com/N78JyKI.jpg",
+        },
+      });
+      const artist6 = await prisma.artist.create({
+      data: {
+          name: "Angelo Salemi",
+          imgUrl: "https://i.imgur.com/P1WEHY7.jpg",
+      },
+      });
+
+      const artist7 = await prisma.artist.create({
+      data: {
+        name: "Orode Deoro",
+        imgUrl: "https://i.imgur.com/jOT5q0T.jpg",
+      }
+      });
+                  // Art
 
     const art1 = await prisma.art.create({
         data: {
@@ -164,6 +197,108 @@ async function main() {
           artistId: artist3.id
         },
       });
+
+                  // NEW 
+
+        const art6 = await prisma.art.create({
+          data: {
+            title: "Luminosa London",
+            description: "A sensual layering of glimpses of St. Petersburg, London, and Madrid enriched with transparencies composes this stupefying photographic artwork.",
+            price: 1100,
+            inStock: true,
+            dimensions: "40x28",
+            year: 2023, 
+            imgUrl: "https://i.imgur.com/qCPKDVc.jpg", 
+            artistId: artist4.id
+          },
+        });
+
+        const art7 = await prisma.art.create({
+          data: {
+            title: "Luminosa Hong Kong,",
+            description: "Hong kong and london are among artist davide bramante's favorite travel destinations. Their eccentric and elegant attitudes are evoked in this photograph through assorted symbols that get layered and intricately intertwined for an impactful visual effect. ",
+            price: 1100,
+            inStock: true,
+            dimensions: "40x28",
+            year: 2023, 
+            imgUrl: "https://i.imgur.com/zV4oQ4c.jpg", 
+            medium: "Photography",
+            artistId: artist4.id
+          },
+        });
+  
+        const art8 = await prisma.art.create({
+          data: {
+            title: "VENERE CONTEMPORANEA",
+            description: "This stunning Contemporary Venus sustainable art piece embodies the divine feminine in ordinary women, where modernized gentle features are accented by scratches to emphasize the struggles and disappointments of everyday lives, and contrasted by an elegant neo-classic hairstyle. ",
+            price: 1000,
+            inStock: true,
+            dimensions: "42x24",
+            year: 2023, 
+            imgUrl: "https://i.imgur.com/2yapIEF.jpg", 
+            medium: "Sculpture",
+            artistId: artist5.id
+          },
+        });
+
+        const art9 = await prisma.art.create({
+          data: {
+            title: "LA BIBLIOTECA",
+            description: "La Biblioteca di Leonardo Da Vinci, or Da Vinci's library, depicts the Italian genius hand-sculpted immersed in a pile of books, symbolic of the 200-book-filled library he carried with him everywhere.",
+            price: 3000,
+            inStock: true,
+            dimensions: "200x400",
+            year: 2023, 
+            imgUrl: "https://i.imgur.com/dB1Ofb8.jpg", 
+            medium: "Sculpture",
+            artistId: artist5.id
+          },
+        });
+
+        const art10 = await prisma.art.create({
+          data: {
+            title: "ORLANDO INNAMORATO ANTHROPOMOPRHIC",
+            description: "A truly unique objet d'art crafted by the expert hands of master ceramist Angelo Salemi, this vase boasts a fierce anthropomorphic shape inspired by Orlando, the fictional knight from the medieval poem 'Orlando In Love'.",
+            price: 1090,
+            inStock: true,
+            dimensions: "13x13x15",
+            year: 2023, 
+            imgUrl: "https://i.imgur.com/bbiriAJ.jpg", 
+            medium: "Sculpture",
+            artistId: artist6.id
+          },
+        });
+
+        const art11 = await prisma.art.create({
+          data: {
+            title: "UN GIORNO VERRAI ",
+            description: "An anthropomorphic design concealing a world of romantic, philosophical inspiration defines the sculptural look of this table lamp handcrafted by master ceramist Angelo Salemi.",
+            price: 1090,
+            inStock: true,
+            dimensions: "15x10x23",
+            year: 2023, 
+            imgUrl: "https://i.imgur.com/ztofUFC.jpg", 
+            medium: "Sculptural Furniture",
+            artistId: artist6.id
+          },
+        });
+
+        const art12 = await prisma.art.create({
+          data: {
+            title: "E IL MATTINO AVANZAVA MOSAIC",
+            description: "Daring and sublime in its contemporary spirit, this mosaic on canvas flaunts a refined female subject emerging from a backdrop of black ceramic tiles and golden plaster. ",
+            price: 1090,
+            inStock: true,
+            dimensions: "15x1x16",
+            year: 2023, 
+            imgUrl: "https://i.imgur.com/93b0MQ9.jpg", 
+            medium: "Mosaic",
+            artistId: artist7.id
+          },
+        });
+
+                    // Order Details
+
       const OrderDetail1 = await prisma.orderDetail.create({
           data: {
               isComplete: false,
