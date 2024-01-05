@@ -1,13 +1,19 @@
 body {
-  font-family:  Rethink Sans, Helvetica, Arial, sans-serif;;
+  font-family:  Rethink Sans, Helvetica, Arial, sans-serif;
+  background-color: rgb(230, 226, 226);
 }
 
+#header {
+  background-color: rgb(99, 95, 99);
+}
 #header-h1 {
+  color:rgb(226, 250, 253);
   font-weight: 800;
   font-style: italic;
   font-size: 4em;
   margin: 0;
   padding: 0;
+  text-align: center;
 }
 
 h2 {
@@ -34,6 +40,7 @@ h2 {
   padding: 10px; 
   border-radius: 5px; 
 }
+
 
 /* 
 #navbar {

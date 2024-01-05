@@ -27,7 +27,7 @@ const Artwork = () => {
 
   return (
     <div>
-      <h2>All Artworks</h2>
+      <h1>All Artworks</h1>
       <Container fluid className="d-flex flex-row flex-wrap">
         {artworks.map((artwork) => (
           <Card className="bg-dark text-white m-2" border="info" style={{ width: '18rem', padding: '0' }} key={artwork.id}>

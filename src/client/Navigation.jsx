@@ -23,7 +23,6 @@ const Navigation = ({ user, setToken, onSearch }) => {
     <>
       <Navbar bg="dark" data-bs-theme="dark" expand="lg">
         <Container>
-          <Navbar.Brand href="/">Art-Bay</Navbar.Brand>
           <Nav className="me-auto">
             <Nav.Link href="/">Home</Nav.Link>
             <Nav.Link href="/artwork">Browse</Nav.Link>
