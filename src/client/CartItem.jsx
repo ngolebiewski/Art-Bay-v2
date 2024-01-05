@@ -1,7 +1,9 @@
 import './cartitem.css'
 import { useEffect, useState } from "react"
 import axios from "axios"
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
+
+const token = window.localStorage.getItem("TOKEN"); 
 
 
 //from CartItem GET: id, quantity, artId
@@ -9,12 +11,46 @@ import { Link } from "react-router-dom";
 //have an input field to adjust quantity
 //have a button to remove from cart
 
-const CartItem = ({ cartItems }) => {
-
+const CartItem = ({ cartItems, refresh, setRefresh}) => {
+  const navigate = useNavigate();
   const [cartArt, setCartArt] = useState({});
   const [artSpecs, setArtSpecs] = useState({});
   const [cartArray, setCartArray] = useState([])
+  const [totalAmount, setTotalAmount] = useState(0)
   const [itemQuantity, setItemQuantity] = useState(1);
+
+
+  const handleDeleteClick = async (id) => {
+    try{
+    await axios.delete(`/api/cart/${id}`, {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    })
+    setRefresh(!refresh);
+    navigate('../cart')
+    } catch(error){
+      console.error(error)
+    }
+  }
+
+  const handleQuantityClick = async (quantity, id) => {
+    try {
+        await axios.put(
+            '/api/cart/qty',
+            { quantity:+quantity, 
+              id:+id,}, 
+            {
+                headers: {
+                    Authorization: "Bearer " + token,
+                },
+            }
+        );
+    } catch (error) {
+        console.error(error);
+    }
+};
+
 
   const getCartItem = async () => {
     try {
@@ -48,7 +84,7 @@ const CartItem = ({ cartItems }) => {
     };
 
     getTheCartForTheArtMart();
-  }, []);
+  }, [refresh, setRefresh]);
 
 
   if (!cartArray[0]) { return (<>Loading...</>) }
@@ -58,6 +94,7 @@ const CartItem = ({ cartItems }) => {
       <>
         {cartArray.map((artwork) => {
           const { id, quantity, title, price, imgUrl, artId } = artwork;
+      
           console.log(artwork)
           return (
             <div className="cart-item" key={id} >
@@ -75,20 +112,23 @@ const CartItem = ({ cartItems }) => {
                   Quantity:
                   <input
                     type="number"
+                    min="0"
+                    max="100"
                     defaultValue={quantity}
-                    onChange={(e) => setItemQuantity(e.target.value)}
+                    onChange={(e) => {setItemQuantity(e.target.value)}}
                     required
                   />
                 </label>
               </div>
               <div>
+                <button onClick={() => handleQuantityClick(itemQuantity, id)}>Update Item</button>
+                {/* {itemQuantity} {id} */}
+              </div>
+              <div>
+                <button onClick={() => handleDeleteClick(id)}>Remove from Cart</button>
+              </div>
+              <div>
                 Total Price: ${quantity * price}
-              </div>
-              <div>
-                <button>Update Cart</button>
-              </div>
-              <div>
-                <button>Remove</button>
               </div>
             </div>)
         })}

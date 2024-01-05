@@ -208,6 +208,35 @@ router.put("/", async (req, res, next) => {
   }
 });
 
+// PUT api/cart/qty --> Edit product Qty in cart
+router.put("/qty", async (req, res, next) => {
+  if (!req.user) {return res.status(401).send("You're a guest, but please keep on shopping. Feel free to register!")}
+  
+  const { quantity, id } = req.body;
+
+  // if user sets qty to 0 then delete the item from the cart
+  if (quantity < 1) {
+    const deleteItem = await deleteCartItem(id);
+    return res.send(deleteItem);
+  }
+
+  // update the qty if 1 or more
+  try {
+    const updatedItem = await prisma.cartItem.update({
+      where: {
+        id:id,
+      },
+      data: {
+        quantity,
+      }
+    });
+    return res.send(updatedItem);
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+});
+
 ////////////////////
 ///// DELETE ///////
 ////////////////////
