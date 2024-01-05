@@ -1,32 +1,42 @@
 import React from "react";
+import { Link, useNavigate } from 'react-router-dom';
 import SearchBar from './SearchBar';
-import { Link } from 'react-router-dom';
-
 
 // TODO: Add in welcome line: ie. welcome Dave...or welcome Guest (text tbd)
 // TODO: Add in token logic to show login/logout/cart
 // TODO: CSS
 
-const Navigation = ({ onSearch }) => {
-
+const Navigation = ({ user, setToken, onSearch }) => {
+  const navigate = useNavigate();
+  function handleLogout() {
+    window.localStorage.removeItem("TOKEN");
+    window.localStorage.removeItem("USERNAME");
+    setToken("");
+    navigate("/");
+  }
   return(
-    <>
-  <nav>
+    <div>
+    {user ? (
+    <div>
+    <Link className='nav-link' to='/'>Home</Link>
+    <Link className='nav-link' to='/artwork'>Browse </Link>
+    <Link className='nav-link' to='/cart'>Cart</Link>
+    <Link className='nav-link' to='/checkout'>Checkout</Link>
+    {/* Maybe Profile or Account page should appear once the user is logged in */}
+    <button onClick={handleLogout}>Logout</button>
+    <SearchBar onSearch={onSearch} />
+</div>) : (
+    <div>
     <Link className='nav-link' to='/'>Home</Link>
     <Link className='nav-link' to='/artwork'>Browse </Link>
     <Link className='nav-link' to='/login'>Login</Link>
-    <Link className='nav-link' to='/cart'>Cart</Link>
-
-    <Link className='nav-link' to='/checkout'>Checkout</Link>
-    <div className="searchBar-component-container">
-      <SearchBar onSearch={onSearch} />
-    </div>
-
     {/* <Link className='nav-link' to='/register'>Register</Link> */}
+    <Link className='nav-link' to='/cart'>Cart</Link>
+    <SearchBar onSearch={onSearch} />
+</div>
+)}
     {/* <Link className='nav-link' to='/checkout'>Checkout</Link> */}
-
-  </nav>
-  </>
+    </div>
   );
 };
 

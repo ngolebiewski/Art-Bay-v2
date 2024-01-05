@@ -1,6 +1,7 @@
 const express = require("express");
 const prisma = require("../client");
 const router = express.Router();
+const jwt = require('jsonwebtoken');
 
 // ROUTE GET: api/user
 router.get('/', async (req, res, next) => {
@@ -16,6 +17,24 @@ router.get('/', async (req, res, next) => {
   } catch (error) {
     console.error(error);
     next(error);
+  }
+});
+
+//ROUTE GET: api/user/me
+router.get("/me", async (req, res, next) => {
+  const bearer = req.headers.authorization;
+  if (!bearer) {
+    res.status(401).send({ user: null });
+    return;
+  }
+
+  const [, token] = bearer.split(" ");
+
+  try {
+    const user = jwt.verify(token, process.env.JWT_SECRET);
+    res.send({ user });
+  } catch (error) {
+    res.status(401).send({ message: "Invalid Token", user: null });
   }
 });
 

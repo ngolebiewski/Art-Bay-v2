@@ -45,7 +45,6 @@ app.use((req, res, next) => {
   } else {
     req.user = null;
   }
-  console.log("Decoded USER: ", req.user);
   next();
 });
 

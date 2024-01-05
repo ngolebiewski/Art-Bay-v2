@@ -3,7 +3,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-const ArtworkDetail = ({ addCartItem }) => {
+const ArtworkDetail = () => {
   const { id } = useParams();
   const [artwork, setArtwork] = useState({})
   const [artists, setArtists] = useState([])
@@ -60,7 +60,6 @@ const ArtworkDetail = ({ addCartItem }) => {
             }
           });
 
-        console.log('Item added to cart:', response.data);
 
       } else {
         // Guest user logic like store cart in local storage or prompt to log in
