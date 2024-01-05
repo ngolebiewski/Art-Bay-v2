@@ -30,9 +30,9 @@ const Artwork = () => {
       <h2>All Artworks</h2>
       <Container fluid className="d-flex flex-row flex-wrap">
         {artworks.map((artwork) => (
-          <Card className="bg-dark text-white m-2" border="info" style={{ width: '18rem' }} key={artwork.id}>
+          <Card className="bg-dark text-white m-2" border="info" style={{ width: '18rem', padding: '0' }} key={artwork.id}>
             <Link to={`/artwork/${artwork.id}`}>
-              <Card.Img className="p-1" variant="top" src={artwork.imgUrl} alt={`Artwork titled ${artwork.title}`} />
+              <Card.Img className="p-1 artwork-image" variant="top" src={artwork.imgUrl} alt={`Artwork titled ${artwork.title}`} />
             </Link>
             <Card.Body>
               <Card.Title>
