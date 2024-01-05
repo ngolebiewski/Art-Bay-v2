@@ -3,8 +3,10 @@
   flex-wrap: wrap;
   flex-direction: row;
   align-items:center;
-  border: 1px solid magenta;
-  margin:5px
+  border: 1px solid black;
+  margin: 5px 10%;
+  border-radius:8px;
+  background-color: rgb(251, 247, 247);
 }
 
 .cart-item > div{
@@ -13,5 +15,10 @@
 
 .cart-image > img {
   width:100px;
-  max-height:100px
+  height:100px;
+  object-fit:contain;
+}
+
+#quantity-field{
+  width:50px;
 }

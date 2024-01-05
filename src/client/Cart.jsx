@@ -1,7 +1,10 @@
 import axios from "axios";
 import { useEffect, useState } from "react"
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import CartItem from "./CartItem";
+import { Button } from "react-bootstrap";
+
+
 
 //PSEUDO-CODE
 //     //if not a token ask to register and login --> NEXT STEP --> shop as guest
@@ -24,6 +27,7 @@ const Cart = () => {
   const [cartItem, setCartItem] = useState({})
   const [refresh, setRefresh] = useState(false)
   const token = window.localStorage.getItem("TOKEN"); 
+  const navigate = useNavigate();
 
   const getUser = async () => {
     try {
@@ -102,8 +106,8 @@ const Cart = () => {
     localStorage.setItem("USERCARTID", cartId);
     return (
       <>
-        <h1>Hello, you're logged in as {userName}</h1>
-        <h1>Cart</h1> 
+        <h1>Hello {userName}!</h1>
+        <h1>Shopping Cart</h1> 
         <h2><Link to='/artwork'>Start Shopping</Link> to add something to your Cart! <br />
         100% of profits go to the artists, we don't take a cut, because we're artists too. </h2>
       </>
@@ -115,13 +119,16 @@ const Cart = () => {
     localStorage.setItem("USERCARTID", cartId);
   return (
     <>
-      <h1>Hello, you're logged in as {userName}</h1>
-      <h1>Cart</h1>
+      <h1 id="cart">Shopping Cart</h1>
       {cartItems[0] ? <CartItem cartItems={cartItems} setRefresh={setRefresh} refresh={refresh} /> : <p>Loading...</p> }
-      <button><Link to="/checkout">Checkout</Link></button>
+      <div id="checkout-button">
+      <Link to="/checkout"><button type="button" className="btn btn-info m-1">Checkout</button></Link>
+      </div>
+      {/* <Button variant="info" onClick={() => navigate("/checkout")}>Checkout</Button> */}
     </>
   )
   }
 }
+
 
 export default Cart
