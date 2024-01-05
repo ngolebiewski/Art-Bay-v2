@@ -10,25 +10,48 @@ import Register from './Register.jsx';
 import WelcomeUser from './WelcomeUser.jsx';
 import Cart from './Cart.jsx';
 import Checkout from './Checkout.jsx';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import axios from "axios";
 
 const App = () =>{
   const [token, setToken] = useState(window.localStorage.getItem("TOKEN"));
   // const [searchResults, setSearchResults] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
-
+  const [user, setUser] = useState("");
   const handleSearch = (term, results) => {
     setSearchTerm(term);
     // setSearchResults(results);
 };
 
+useEffect(() => {
+  async function getMe() {
+    if (token) {
+      try {
+        const { data } = await axios.get("/api/user/me", {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        });
+        setUser(data.user); 
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+        setUser(null); 
+      }
+    } else {
+      setUser(null); 
+    }
+  }
+  getMe();
+}, [token]);
+
+
   return (
     <>
       <section id="header"> <Header /> </section>
 
-      <section id="navbar"> <Navigation onSearch={handleSearch}/></section>
+      <section id="navbar"> <Navigation user={user} setToken={setToken} onSearch={handleSearch}/></section>
 
-      <section id="main">
+      {user ? (
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/artwork' element={<Artwork onSearch={handleSearch}/>} />
@@ -36,13 +59,24 @@ const App = () =>{
           <Route path='/artist/:id' element={<ArtistDetail />} /> 
           <Route path='/cart' element={<Cart />} />
           <Route path='/checkout' element={<Checkout />} />
-          <Route path='/login' element={<LoginForm setToken={setToken}/>} />
-          <Route path='/register' element={<Register />} />
           <Route path='/welcome' element={<WelcomeUser />} />
 
         </Routes>
+      ) : (
+        <Routes>
+        <Route path='/' element={<Home />} />
+        <Route path='/artwork' element={<Artwork onSearch={handleSearch}/>} />
+        <Route path='/artwork/:id' element={<ArtworkDetail />} /> 
+        <Route path='/artist/:id' element={<ArtistDetail />} /> 
+        <Route path='/cart' element={<Cart />} />
+        <Route path='/checkout' element={<Checkout />} />
+        <Route path='/login' element={<LoginForm setToken={setToken}/>} />
+        <Route path='/register' element={<Register />} />
+        <Route path='/welcome' element={<WelcomeUser />} />
 
-      </section>
+      </Routes>
+      )}
+  
 
     </>
   );
