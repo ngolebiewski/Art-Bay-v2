@@ -2,6 +2,7 @@ import './cartitem.css'
 import { useEffect, useState } from "react"
 import axios from "axios"
 import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Button } from 'react-bootstrap';
 
 const token = window.localStorage.getItem("TOKEN"); 
 
@@ -104,13 +105,16 @@ const CartItem = ({ cartItems, refresh, setRefresh}) => {
                 </Link>
               </div>
               <div>
-                <p>{title}</p>
-                <p>Price: ${price}</p>
+                {title}
+              </div>
+              <div>
+                Price: ${price}
               </div>
               <div>
                 <label>
                   Quantity:
                   <input
+                    id="quantity-field"
                     type="number"
                     min="0"
                     max="100"
@@ -121,11 +125,11 @@ const CartItem = ({ cartItems, refresh, setRefresh}) => {
                 </label>
               </div>
               <div>
-                <button onClick={() => handleQuantityClick(itemQuantity, id)}>Update Item</button>
+                <Button variant="primary" onClick={() => handleQuantityClick(itemQuantity, id)}>Update Item</Button>
                 {/* {itemQuantity} {id} */}
               </div>
               <div>
-                <button onClick={() => handleDeleteClick(id)}>Remove from Cart</button>
+                <Button variant="primary"  onClick={() => handleDeleteClick(id)}>Remove from Cart</Button>
               </div>
               <div>
                 Total Price: ${quantity * price}
