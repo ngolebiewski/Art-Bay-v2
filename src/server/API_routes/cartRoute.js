@@ -8,6 +8,12 @@ const router = express.Router();
 //logic in front end?
 //TBD
 
+//CURRENT ROUTES
+// GET /api/cart Gets the current cart for the user. It requires a token for authentication.
+// GET /api/cart/:id Gets all the cart items in a specific cart.
+// POST /api/cart Adds a product to the cart.
+// PUT /api/cart Edits the quantity of a product in the cart.
+// DELETE /api/cart/:id Deletes an item from the cart.
 
 /////////////////////////
 ///// HELPER FUNCTIONS //
@@ -90,11 +96,13 @@ router.get("/", async (req, res, next) => {
 //gets all the cart items in a specific cart
 router.get("/:id", async (req, res, next) => {
   const { id } = req.params
+  // console.log("Order ID: ", id); 
+  // console.log("Received params: ", req.params);
 
   try {
     const allCartItems = await prisma.cartItem.findMany({
       where: {
-        orderId:+id,
+        orderId: parseInt(id),
       }
     })
     return res.send(allCartItems);
@@ -122,24 +130,43 @@ router.get("/:id", async (req, res, next) => {
 //LOGIC: assume the username/cart/etc. are already vetted...
 
 router.post("/", async (req, res, next) => {
+  // console.log("USER: ", req.user);
+  // console.log("HEADERS: ", req.headers);
+
   if (!req.user) {return res.status(401).send("You're a guest, but please keep on shopping. Feel free to register!")}
   
-  const { artId, quantity, orderId, userId } = req.body;
+  const { artId, quantity} = req.body;
 
-  if (+req.user.id !== +userId) {
-    return res.status(401).send("Oops, this is not your cart")
-  }
+  // if (+req.user.id !== +userId) {
+  //   return res.status(401).send("Oops, this is not your cart")
+  // }
 
   try {
-    const addedItem = await prisma.cartItem.create({
-      data: {
-        quantity,
-        artId,
-        orderId,
+    let order = await prisma.orderDetail.findFirst({
+      where: {
+        userId: req.user.id,
+        isComplete: false,
       },
     });
+// If no active order, create one
+if (!order) {
+  order = await prisma.orderDetail.create({
+    data: {
+      userId: req.user.id,
+      isComplete: false,
+    },
+  });
+}
+const addedItem = await prisma.cartItem.create({
+    data: {
+      artId: artId,
+        orderId: order.id,
+        quantity: quantity,
+    },
+  });
 
-    return res.send(addedItem);
+  res.json(addedItem);
+    //return res.send(addedItem);
   } catch (error) {
     console.error(error);
     next(error);
@@ -153,6 +180,7 @@ router.post("/", async (req, res, next) => {
 
 // PUT api/cart/ --> Edit product Qty in cart
 router.put("/", async (req, res, next) => {
+  console.log("USER INFO", req.user)
   if (!req.user) {return res.status(401).send("You're a guest, but please keep on shopping. Feel free to register!")}
   
   const { artId, quantity, orderId, id } = req.body;
@@ -204,3 +232,4 @@ router.delete("/:id", async (req, res, next) => {
 });
 
 module.exports = router;
+
