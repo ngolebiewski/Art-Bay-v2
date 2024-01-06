@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react"
 import { Link, useNavigate } from "react-router-dom";
 import CartItem from "./CartItem";
-import { Button } from "react-bootstrap";
+import { Button, Container, Row, Col } from "react-bootstrap";
 
 
 
@@ -94,39 +94,46 @@ const Cart = () => {
 
   if (!userId) {
     return (
-      <>
-        <h1>In the future you can shop as a Guest.<br />
-          In the meantime, {<Link to='/login'>Login or Register</Link>} to start shopping</h1>
-      </>
-    )
+      <Container className="text-center mt-5">
+        <h1>In the future, you can shop as a Guest.</h1>
+        <p>In the meantime, <Link to='/login'>Login or Register</Link> to start shopping.</p>
+      </Container>
+    );
   }
 
   if (userId && !cartItems[0]) {
     localStorage.setItem("USERID", userId);
     localStorage.setItem("USERCARTID", cartId);
     return (
-      <>
+      <Container className="text-center mt-5">
         <h1>Hello {userName}!</h1>
-        <h1>Shopping Cart</h1> 
-        <h2><Link to='/artwork'>Start Shopping</Link> to add something to your Cart! <br />
-        100% of profits go to the artists, we don't take a cut, because we're artists too. </h2>
-      </>
-    )
+        <h2>Your Shopping Cart is empty.</h2>
+        <p>
+          <Link to='/artwork'>Start Shopping</Link> to add something to your Cart! 
+          <br />100% of profits go to the artists, we don't take a cut, because we're artists too.
+        </p>
+      </Container>
+    );
   }
 
   if (cartItems[0]) {
   localStorage.setItem("USERID", userId);
     localStorage.setItem("USERCARTID", cartId);
-  return (
-    <>
-      <h1 id="cart">Shopping Cart</h1>
-      {cartItems[0] ? <CartItem cartItems={cartItems} setRefresh={setRefresh} refresh={refresh} /> : <p>Loading...</p> }
-      <div id="checkout-button">
-      <Link to="/checkout"><button type="button" className="btn btn-info m-1">Checkout</button></Link>
+    return (
+      <Container className="mt-5 text-center">
+      <h1>Shopping Cart</h1>
+      {cartItems[0] ? (
+        <CartItem cartItems={cartItems} setRefresh={setRefresh} refresh={refresh} />
+      ) : (
+        <p>Loading...</p>
+      )}
+      <div className="mt-3">
+        <Link to="/checkout">
+          <Button variant="info">Checkout</Button>
+        </Link>
       </div>
-      {/* <Button variant="info" onClick={() => navigate("/checkout")}>Checkout</Button> */}
-    </>
-  )
+    </Container>
+    );
   }
 }
 

@@ -1,17 +1,17 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Button from 'react-bootstrap/Button';
 
 const PaymentSuccess = () => {
   return (
-    <>
-      <h1>Thank You!</h1>
-        
-        <h3>Your Payment was Successful!</h3>
-      <p>You will receive an Email shortly with your order number, tracking details, and receipt.</p>
+    <div className="container text-center mt-5">
+      <h1 className="mb-4">Thank You!</h1>
+      <h3 className="mb-3">Your Payment was successful!</h3>
+      <p className="mb-4">You will receive an Email shortly with your order number, tracking details and receipt.</p>
       <Link to="/">
-        <button>Continue</button>
+        <Button variant="primary">Continue Shopping</Button>
       </Link>
-    </>
+    </div>
   );
 };
 
