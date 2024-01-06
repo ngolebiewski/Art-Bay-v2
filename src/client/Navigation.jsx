@@ -45,21 +45,11 @@ const Navigation = ({ user, setToken, onSearch }) => {
               className="mr-sm-2"
               onChange={(e) => onSearch(e.target.value)}
             />
-            <Button variant="outline-success">Search</Button>
+            <Button variant="outline-light">Search</Button>
           </Form>
         </Container>
       </Navbar>
-
-
-
-
-
-
-
-
     </>
-
-
   );
 };
 
